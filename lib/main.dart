@@ -7,6 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 
+import 'select_recipients.dart';
+import 'confirmation.dart';
+
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
@@ -25,6 +28,12 @@ Future<void> main() async {
         // Pass the appropriate camera to the TakePictureScreen widget.
         camera: firstCamera,
       ),
+      routes: <String, WidgetBuilder> {
+        '/recipientScreen': (BuildContext context) =>
+        RecipientScreen(),
+        '/confirmationScreen': (BuildContext context) =>
+        Confirmation()
+      }
     ),
   );
 }
@@ -78,7 +87,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Take a picture')),
       // Wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner
       // until the controller has finished initializing.
@@ -118,7 +126,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.bottomRight,
                     child: Visibility(
                       visible: _pictureTaken,
                       child: FloatingActionButton(
@@ -127,7 +135,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                           size: 20,
                         ),
                         // Provide an onPressed callback.
-                        onPressed: () async {},
+                        onPressed:
+                          _selectRecipients
                       ),
                     ),
                   ),
@@ -185,6 +194,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
     );
   }
+
+  Future<void> _selectRecipients() async {
+    Navigator.pushNamed(context, '/recipientScreen');
+  }
 }
 
 // A widget that displays the picture taken by the user.
@@ -203,3 +216,4 @@ class DisplayPictureScreen extends StatelessWidget {
     );
   }
 }
+
