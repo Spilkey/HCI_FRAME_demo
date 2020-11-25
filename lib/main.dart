@@ -23,18 +23,15 @@ Future<void> main() async {
 
   runApp(
     MaterialApp(
-      theme: ThemeData.dark(),
-      home: TakePictureScreen(
-        // Pass the appropriate camera to the TakePictureScreen widget.
-        camera: firstCamera,
-      ),
-      routes: <String, WidgetBuilder> {
-        '/recipientScreen': (BuildContext context) =>
-        RecipientScreen(),
-        '/confirmationScreen': (BuildContext context) =>
-        Confirmation()
-      }
-    ),
+        theme: ThemeData.dark(),
+        home: TakePictureScreen(
+          // Pass the appropriate camera to the TakePictureScreen widget.
+          camera: firstCamera,
+        ),
+        routes: <String, WidgetBuilder>{
+          '/recipientScreen': (BuildContext context) => RecipientScreen(),
+          '/confirmationScreen': (BuildContext context) => Confirmation()
+        }),
   );
 }
 
@@ -126,18 +123,35 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Visibility(
+                      visible: _pictureTaken,
+                      child: FloatingActionButton(
+                        child: Text("Back"),
+                        // Provide an onPressed callback.
+                        onPressed: () async {
+                          setState(() {
+                            selectedImage = null;
+                            _pictureTaken = !_pictureTaken;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Align(
                     alignment: Alignment.bottomRight,
                     child: Visibility(
                       visible: _pictureTaken,
                       child: FloatingActionButton(
-                        child: Icon(
-                          Icons.arrow_right_sharp,
-                          size: 20,
-                        ),
-                        // Provide an onPressed callback.
-                        onPressed:
-                          _selectRecipients
-                      ),
+                          child: Icon(
+                            Icons.arrow_right_sharp,
+                            size: 20,
+                          ),
+                          // Provide an onPressed callback.
+                          onPressed: _selectRecipients),
                     ),
                   ),
                 ),
@@ -216,4 +230,3 @@ class DisplayPictureScreen extends StatelessWidget {
     );
   }
 }
-
