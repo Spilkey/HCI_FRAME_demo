@@ -1,6 +1,6 @@
 # hcipartthreeb
 
-A new Flutter project.
+A simple Flutter project to simulate the final app design for our Human Computer Interaction project (part 3b). It simulates the user experience of taking/selecting pictures or videos and sending to selected recipients. 
 
 ## Getting Started
 
