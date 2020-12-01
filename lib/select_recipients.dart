@@ -23,7 +23,7 @@ class RecipientScreen extends StatefulWidget {
 
 class _RecipientScreen extends State<RecipientScreen> {
 
-  List _frames = ["Mom and Dad", "Grandpa", "Auntie", "Uncle Rajesh"];
+  List _frames = ["Mom and Dad", "Grandpa", "Auntie", "Uncle Rajesh", "Aaron"];
   var _selectedID;
   var _selected = [];
 
